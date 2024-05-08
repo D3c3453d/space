@@ -23,7 +23,7 @@ void MultiThreadWorld::merge(int bigger, int smaller) {
 }
 
 void MultiThreadWorld::Tick(double elapsedSec) {
-    std::atomic<size_t> tasksPending = objects.size();
+    std::atomic<int32_t> tasksPending = objects.size();
 
     unsigned int workersNum = std::thread::hardware_concurrency() - 1;
 
