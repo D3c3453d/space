@@ -33,10 +33,8 @@ void SingleThreadWorld::collision(int i, int j, sf::Vector2<double> tang) {
 
 
 void SingleThreadWorld::Tick(double elapsedSec) {
-#pragma omp parallel for
     for (int i = 0; i < objects.size(); ++i) {
         sf::Vector2<double> force{0, 0};
-#pragma omp parallel for
         for (int j = 0; j < objects.size(); ++j) {
             if (i == j) {
                 continue;
