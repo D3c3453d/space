@@ -20,6 +20,8 @@ add_executable(space main.cpp
         misc/mpmc_queue.h
         misc/ext_math.cpp
         misc/ext_math.h
+        Entities/OmpWorld.cpp
+        Entities/OmpWorld.h
 )
 
 target_link_libraries(space OpenMP::OpenMP_CXX sfml-graphics sfml-window sfml-system)
