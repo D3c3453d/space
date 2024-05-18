@@ -3,13 +3,16 @@
 #include <chrono>
 #include "Entities/SingleThreadWorld.h"
 #include "Entities/MultiThreadWorld.h"
+#include "Entities/OmpWorld.h"
 
 int main()
 {
     sf::Vector2u windowSize(900, 900);
     sf::Vector2<double> worldSize(900, 900);
     sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y), "space");
-    MultiThreadWorld world(worldSize);
+    OmpWorld world(worldSize);
+    //SingleThreadWorld world(worldSize);
+    //MultiThreadWorld world(worldSize);
     world.GenerateObjects(1000);
     //world.objects.push_back(Object(sf::Vector2<double>(0,400), sf::Vector2<double>(200,0), sf::Color::White, 100));
     //world.objects.push_back(Object(sf::Vector2<double>(400,410), sf::Vector2<double>(-200,0), sf::Color::White, 100));
