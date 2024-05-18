@@ -38,10 +38,11 @@ void MultiThreadWorld::Tick(double elapsedSec) {
                     continue;
                 }
                 sf::Vector2<double> delta = objects[j].getPosition() - objects[i].getPosition();
-                double dist = std::max(std::sqrt(delta.x * delta.x + delta.y * delta.y), 1.);
+                //double dist = std::max(std::sqrt(delta.x * delta.x + delta.y * delta.y), 1.);
+                double dist = std::max(std::sqrt(delta.x * delta.x + delta.y * delta.y),std::min(objects[i].getRadius(), objects[j].getRadius()));
                 force += delta/dist * objects[i].getMass() * objects[j].getMass() / std::pow(dist, 2)  * G;
-                if (dist <= objects[i].getRadius() && objects[i].getMass() > objects[j].getMass())
-                    merge(i, j);
+                // if (dist <= objects[i].getRadius() && objects[i].getMass() > objects[j].getMass())
+                //     merge(i, j);
             }
             objects[i].setVelocity(objects[i].getVelocity() + force / objects[i].getMass() * elapsedSec);
         }
