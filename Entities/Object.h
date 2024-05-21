@@ -9,7 +9,7 @@ class Object {
     sf::CircleShape shape;
     double mass;
     double radius;
-    static constexpr double density = 5;
+    static constexpr double density = 1;
 
 public:
     Object(sf::Vector2<double> position, sf::Vector2<double> velocity, sf::Color color, double mass);

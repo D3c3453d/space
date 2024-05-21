@@ -7,12 +7,12 @@
 
 int main()
 {
-    sf::Vector2u windowSize(900, 900);
-    sf::Vector2<double> worldSize(900, 900);
+    sf::Vector2u windowSize(1920, 1080);
+    sf::Vector2<double> worldSize(1920, 1080);
     sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y), "space");
-    OmpWorld world(worldSize);
+    //OmpWorld world(worldSize);
     //SingleThreadWorld world(worldSize);
-    //MultiThreadWorld world(worldSize);
+    MultiThreadWorld world(worldSize);
     world.GenerateObjects(1000);
     //world.objects.push_back(Object(sf::Vector2<double>(0,400), sf::Vector2<double>(200,0), sf::Color::White, 100));
     //world.objects.push_back(Object(sf::Vector2<double>(400,410), sf::Vector2<double>(-200,0), sf::Color::White, 100));

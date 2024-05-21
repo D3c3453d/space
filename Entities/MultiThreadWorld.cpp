@@ -6,26 +6,10 @@ MultiThreadWorld::MultiThreadWorld(sf::Vector2<double> size)
     std::cout << std::thread::hardware_concurrency() << " threads will be used" << std::endl;
 }
 
-void MultiThreadWorld::merge(int bigger, int smaller) {
-
-    objects[bigger].setVelocity((objects[bigger].getVelocity() * objects[bigger].getMass() + objects[smaller].getVelocity() * objects[smaller].getMass()) /
-                                      (objects[bigger].getMass() + objects[smaller].getMass()));
-
-    objects[bigger].setPosition((objects[bigger].getPosition() * objects[bigger].getMass() + objects[smaller].getPosition() * objects[smaller].getMass()) /
-                          (objects[bigger].getMass() + objects[smaller].getMass()));
-
-    objects[bigger].setMass(objects[bigger].getMass()+objects[smaller].getMass());
-
-
-    objects[smaller].setMass(0);
-    objects[smaller].setVelocity(sf::Vector2<double>(0,0));
-    objects[smaller].setPosition(sf::Vector2<double>(0,0));
-}
-
 void MultiThreadWorld::Tick(double elapsedSec) {
-    std::atomic<int32_t> tasksPending = objects.size();
+    std::atomic<int> tasksPending = objects.size();
 
-    unsigned int workersNum = std::thread::hardware_concurrency() - 1;
+    unsigned int workersNum = std::thread::hardware_concurrency();
 
     auto work = [&] () {
         while (tasksPending.fetch_sub(1) > 0) {
@@ -41,8 +25,8 @@ void MultiThreadWorld::Tick(double elapsedSec) {
                 //double dist = std::max(std::sqrt(delta.x * delta.x + delta.y * delta.y), 1.);
                 double dist = std::max(std::sqrt(delta.x * delta.x + delta.y * delta.y),std::min(objects[i].getRadius(), objects[j].getRadius()));
                 force += delta/dist * objects[i].getMass() * objects[j].getMass() / std::pow(dist, 2)  * G;
-                // if (dist <= objects[i].getRadius() && objects[i].getMass() > objects[j].getMass())
-                //     merge(i, j);
+                //collision(i, j, dist);
+                merge(i, j, dist);
             }
             objects[i].setVelocity(objects[i].getVelocity() + force / objects[i].getMass() * elapsedSec);
         }

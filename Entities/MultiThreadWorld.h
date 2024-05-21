@@ -9,7 +9,6 @@
 
 
 class MultiThreadWorld : public World {
-    void merge(int bigger, int smaller);
 public:
     MultiThreadWorld(sf::Vector2<double> size);
     void Tick(double elapsedSec) override;
